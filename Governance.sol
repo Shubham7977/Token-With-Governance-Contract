@@ -105,9 +105,6 @@ contract Governance is Ownable{
         Rule storage r = rules[ruleId];
         return (r.contr, r.majority, r.funcAbi);
     }
-//////
-        
-/////\\\\\\
 
     function _getVotingPower(address voter) internal view
         returns(uint256 votingPower)
@@ -115,7 +112,7 @@ contract Governance is Ownable{
         votingPower = tokenContract.balanceOf(voter);
     }
 
-    function _checkMajority(uint32 majority,uint256 _ballotId) internal view returns(bool){ //remaining to check
+    function _checkMajority(uint32 majority,uint256 _ballotId) internal view returns(bool){ 
         
         Ballot storage b = ballots[_ballotId];
 
@@ -147,7 +144,7 @@ contract Governance is Ownable{
     }
 
     // answer 1 = yay and answer 2 = nay
-    function vote(uint256 _ballotId,uint answer) external returns (bool){ //can be edited
+    function vote(uint256 _ballotId,uint answer) external returns (bool){ 
         require(_ballotId <= ballotIds,"Wrong ballot ID");
         require(voted[msg.sender][_ballotId] == false,"already voted");
         require(tokenContract.balanceOf(msg.sender) > 0,"you can't vote");
@@ -175,7 +172,7 @@ contract Governance is Ownable{
         return true;        
     }
 
-    function createBallot(uint256 ruleId, bytes memory args) external { //can be edited
+    function createBallot(uint256 ruleId, bytes memory args) external {
         require(ruleId <= rulesIds,"Wrong rule ID");
         Rule memory r = rules[ruleId];
         (uint256 power) = _getVotingPower(msg.sender);
