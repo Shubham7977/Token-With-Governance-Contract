@@ -214,7 +214,7 @@ contract Governance is Ownable{
     function _executeBallot(uint256 ballotId) internal {
         Ballot storage b = ballots[ballotId];
         require(b.status != Status.Executed,"Ballot is Executed");
-        Rule storage r = rules[b.ruleId];
+        Rule memory r = rules[b.ruleId];
         bytes memory command = abi.encodePacked(bytes4(keccak256(bytes(r.funcAbi))), b.args);
         trigger(r.contr, command);
         b.closeVote = block.timestamp;
